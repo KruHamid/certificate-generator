@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบรับใบประกาศนียบัตร</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Google Sans', 'Sarabun', sans-serif;
+            background-color: #f8f9fa;
+        }
+        /* Custom styles for printing */
+        @media print {
+            body, html {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+            }
+            #input-section, #certificate-actions {
+                display: none !important;
+            }
+            #certificate-container {
+                display: block !important;
+                width: 100%;
+                height: 100vh;
+                box-shadow: none;
+                border: none;
+                padding: 1rem;
+                margin: 0;
+                page-break-after: always;
+            }
+            #certificate-card {
+                 height: 100%;
+                 border: 1px solid #e0e0e0;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-2xl mx-auto">
+        <!-- Input Section -->
+        <div id="input-section" class="bg-white p-8 rounded-xl shadow-lg transition-opacity duration-500">
+            <div class="text-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Event Logo" class="mx-auto mb-4 h-20 w-20">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">รับใบประกาศนียบัตรออนไลน์</h1>
+                <p class="text-gray-600 mt-2">สำหรับผู้เข้าร่วมกิจกรรม Google Champions Thailand Energizer 2025</p>
+            </div>
+            <form id="name-form" class="mt-8 space-y-6">
+                <div>
+                    <label for="student-name" class="block text-sm font-medium text-gray-700">กรุณากรอกชื่อ-นามสกุล ของท่าน</label>
+                    <input type="text" id="student-name" name="student-name" required placeholder="เช่น นายใจดี มีคุณธรรม" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-lg">
+                </div>
+                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-transform transform hover:scale-105">
+                    สร้างใบประกาศ
+                </button>
+            </form>
+        </div>
+
+        <!-- Certificate Section -->
+        <div id="certificate-container" class="hidden transition-opacity duration-500">
+            <div id="certificate-card" class="bg-white p-6 md:p-10 rounded-lg shadow-2xl aspect-[1.414/1] flex flex-col items-center justify-center text-center relative overflow-hidden border border-gray-200">
+                <div class="w-full">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" class="h-12 mx-auto mb-4">
+                    <h2 class="text-xl md:text-2xl text-gray-500 tracking-wider font-light">CERTIFICATE OF PARTICIPATION</h2>
+                    
+                    <p class="mt-12 text-base md:text-lg text-gray-700">มอบให้ไว้เพื่อแสดงว่า</p>
+                    
+                    <p id="certificate-name" class="my-4 text-3xl md:text-5xl font-bold text-gray-800 border-b-2 border-dotted border-gray-300 pb-4"></p>
+                    
+                    <p class="mt-6 text-base md:text-lg text-gray-700 max-w-lg mx-auto">
+                        ได้เข้าร่วมกิจกรรม <span class="font-bold">Google Champions Thailand Energizer 2025</span>
+                        <br>ณ Google Thailand ด้วยความมุ่งมั่นและตั้งใจ
+                    </p>
+                    
+                    <p class="mt-8 text-sm md:text-base text-gray-500">ให้ไว้ ณ วันที่ 16-17 ตุลาคม พ.ศ. 2568</p>
+                    
+                    <div class="mt-16 w-full flex justify-center">
+                        <div class="text-center">
+                            <div class="w-56 h-12 mx-auto mb-2">
+                                <img src="https://img5.pic.in.th/file/secure-sv1/licen.png" alt="Signature" class="h-full mx-auto object-contain">
+                            </div>
+                            <p class="border-b-2 border-gray-300 w-64 mx-auto">&nbsp;</p>
+                            <p class="mt-2 text-sm text-gray-700">
+                                ( ........................................ )
+                                <br>
+                                <span class="text-sm text-gray-800 font-medium">Google Certified Trainer</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Google Color Bar -->
+                <div class="absolute bottom-0 left-0 w-full h-2 flex">
+                    <div class="w-1/4 h-full" style="background-color: #4285F4;"></div> <!-- Blue -->
+                    <div class="w-1/4 h-full" style="background-color: #DB4437;"></div> <!-- Red -->
+                    <div class="w-1/4 h-full" style="background-color: #F4B400;"></div> <!-- Yellow -->
+                    <div class="w-1/4 h-full" style="background-color: #0F9D58;"></div> <!-- Green -->
+                </div>
+            </div>
+
+            <div id="certificate-actions" class="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="window.print()" class="w-full sm:w-auto flex justify-center py-3 px-6 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    พิมพ์ / บันทึกเป็น PDF
+                </button>
+                <button id="back-button" class="w-full sm:w-auto flex justify-center py-3 px-6 border border-gray-300 rounded-md shadow-sm text-lg font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    กลับไปหน้าแรก
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputSection = document.getElementById('input-section');
+        const certificateContainer = document.getElementById('certificate-container');
+        const nameForm = document.getElementById('name-form');
+        const studentNameInput = document.getElementById('student-name');
+        const certificateName = document.getElementById('certificate-name');
+        const backButton = document.getElementById('back-button');
+
+        nameForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent page reload
+            
+            const studentName = studentNameInput.value.trim();
+            if (studentName) {
+                certificateName.textContent = studentName;
+                
+                // Fade out form, then fade in certificate
+                inputSection.classList.add('opacity-0');
+                setTimeout(() => {
+                    inputSection.classList.add('hidden');
+                    certificateContainer.classList.remove('hidden');
+                    setTimeout(() => {
+                        certificateContainer.classList.remove('opacity-0');
+                    }, 50); // a small delay to trigger transition
+                }, 500);
+            }
+        });
+
+        backButton.addEventListener('click', function() {
+            // Fade out certificate, then fade in form
+            certificateContainer.classList.add('opacity-0');
+            setTimeout(() => {
+                certificateContainer.classList.add('hidden');
+                studentNameInput.value = ''; // Clear the input field
+                inputSection.classList.remove('hidden');
+                setTimeout(() => {
+                    inputSection.classList.remove('opacity-0');
+                }, 50);
+            }, 500);
+        });
+
+        // Initialize opacity for transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            certificateContainer.classList.add('opacity-0');
+        });
+    </script>
+</body>
+</html>
+
+
+
+
