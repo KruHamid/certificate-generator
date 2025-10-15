@@ -22,7 +22,7 @@
             background-repeat: no-repeat;
         }
 
-        /* --- STYLES FOR PRINTING (DEFINITIVE FIX v3) --- */
+        /* --- STYLES FOR PRINTING (DEFINITIVE FIX v5) --- */
         @media print {
             @page {
                 size: A4 landscape;
@@ -37,20 +37,13 @@
                 -webkit-print-color-adjust: exact;
                 color-adjust: exact;
             }
-            /* Hide everything on the page initially */
-            body > * {
+            /* Hide the main on-screen wrapper, which contains everything */
+            .max-w-2xl {
                 display: none !important;
             }
-            /* ONLY show the certificate container and its contents */
-            #certificate-container, #certificate-container * {
-                display: block !important;
-            }
-            /* Hide the action buttons within the container */
-            #certificate-actions {
-                display: none !important;
-            }
-            /* Force the container to take up the ENTIRE page viewport */
+            /* Then, force the certificate container to be visible and fill the page */
             #certificate-container {
+                display: block !important;
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -61,20 +54,25 @@
                 margin: 0;
                 padding: 0;
             }
-            /* Force the card to fill the container and manage its own padding */
+            /* The card itself is the background image container */
             #certificate-card {
                  width: 100%;
                  height: 100%;
                  border: none !important;
                  box-shadow: none !important;
                  border-radius: 0 !important;
-                 padding: 2cm; /* Safe print margin INSIDE the card */
+                 padding: 1.5cm; /* Create a safe margin for the inner content box */
                  box-sizing: border-box;
-                 aspect-ratio: auto; /* Override on-screen aspect ratio for printing */
-                 display: flex !important; /* Re-apply flex to center content */
-                 flex-direction: column !important;
+                 aspect-ratio: auto;
+                 display: flex !important;
                  align-items: center !important;
                  justify-content: center !important;
+            }
+             /* The inner white box should also fill its container */
+            .inner-content-box {
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.88) !important;
             }
         }
     </style>
@@ -103,7 +101,8 @@
         <!-- Certificate Section -->
         <div id="certificate-container" class="hidden transition-opacity duration-500">
             <div id="certificate-card" class="p-6 md:p-10 rounded-lg shadow-2xl aspect-[1.414/1] flex flex-col items-center justify-center text-center relative overflow-hidden border border-gray-200">
-                <div class="w-full bg-white bg-opacity-80 backdrop-blur-sm p-8 rounded-lg">
+                <!-- Re-introduced inner div for content to ensure the white box is reliable -->
+                <div class="inner-content-box w-full h-full bg-white bg-opacity-88 backdrop-blur-sm p-8 rounded-lg flex flex-col items-center justify-center">
                     <img src="https://img2.pic.in.th/pic/-1210515f1d6a265c77.png" alt="GEG Thailand Logo" class="h-20 mx-auto mb-4 w-auto">
                     <h2 class="text-xl md:text-2xl text-blue-600 tracking-wider font-bold">CERTIFICATE OF PARTICIPATION</h2>
                     <p class="mt-8 text-base md:text-lg text-gray-700">มอบให้ไว้เพื่อแสดงว่า</p>
