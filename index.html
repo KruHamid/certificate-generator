@@ -15,52 +15,56 @@
             background-color: #f8f9fa;
         }
         
-        @page {
-            size: A4 landscape;
-            margin: 0;
-        }
-
-        #certificate-card {
+        #certificate-card-display {
             background-image: url('https://img5.pic.in.th/file/secure-sv1/SLIDE-_-Google-Champions-Thailand-energizer-2025-16-17--2568-1c7c9af74fa115644.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        /* --- STYLES FOR PRINTING (REVISED FOR RELIABILITY) --- */
+        /* --- STYLES FOR PRINTING (DEFINITIVE FIX FOR MOBILE) --- */
         @media print {
-            body, html {
+            @page {
+                size: A4 landscape;
                 margin: 0;
-                padding: 0;
+            }
+            body, html {
+                margin: 0 !important;
+                padding: 0 !important;
                 width: 100%;
                 height: 100%;
-                background-color: white;
-                -webkit-print-color-adjust: exact; /* Force printing background colors */
+                background-color: white !important;
+                -webkit-print-color-adjust: exact;
                 color-adjust: exact;
             }
-            /* Hide unnecessary elements */
-            #input-section, #certificate-actions {
+            /* Hide non-printable elements */
+            #input-section, #certificate-actions, .max-w-2xl {
                 display: none !important;
             }
-            /* Ensure container fills the entire print page */
+            /* Force the certificate to take up the ENTIRE page */
             #certificate-container {
                 display: block !important;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
                 width: 100%;
                 height: 100%;
-                padding: 0; /* No padding on the main container */
+                padding: 0;
                 margin: 0;
                 box-shadow: none;
                 border: none;
             }
-            /* The card itself will fill the container and handle its own padding */
-            #certificate-card {
+            #certificate-card-display {
                  width: 100%;
                  height: 100%;
-                 border: none;
-                 box-shadow: none;
-                 border-radius: 0;
-                 padding: 2cm; /* Create a safe print margin inside the card */
-                 box-sizing: border-box; /* Ensure padding is included in the size */
+                 border: none !important;
+                 box-shadow: none !important;
+                 border-radius: 0 !important;
+                 padding: 1.5cm; /* Safe print margin inside the card */
+                 box-sizing: border-box; /* Crucial for correct padding */
+                 aspect-ratio: auto; /* Override on-screen aspect ratio */
             }
         }
     </style>
@@ -88,22 +92,18 @@
 
         <!-- Certificate Section -->
         <div id="certificate-container" class="hidden transition-opacity duration-500">
-            <div id="certificate-card" class="p-6 md:p-10 rounded-lg shadow-2xl aspect-[1.414/1] flex flex-col items-center justify-center text-center relative overflow-hidden border border-gray-200">
+            <!-- Renamed ID to avoid conflicts -->
+            <div id="certificate-card-display" class="p-6 md:p-10 rounded-lg shadow-2xl aspect-[1.414/1] flex flex-col items-center justify-center text-center relative overflow-hidden border border-gray-200">
                 <div class="w-full bg-white bg-opacity-80 backdrop-blur-sm p-8 rounded-lg">
                     <img src="https://img2.pic.in.th/pic/-1210515f1d6a265c77.png" alt="GEG Thailand Logo" class="h-20 mx-auto mb-4 w-auto">
                     <h2 class="text-xl md:text-2xl text-blue-600 tracking-wider font-bold">CERTIFICATE OF PARTICIPATION</h2>
-                    
                     <p class="mt-8 text-base md:text-lg text-gray-700">มอบให้ไว้เพื่อแสดงว่า</p>
-                    
                     <p id="certificate-name" class="my-4 text-3xl md:text-5xl font-bold text-gray-800 border-b-2 border-dotted border-gray-300 pb-4"></p>
-                    
                     <p class="mt-6 text-base md:text-lg text-gray-700 max-w-lg mx-auto">
                         ได้เข้าร่วมกิจกรรม <span class="font-bold">Google Champions Thailand Energizer 2025</span>
                         <br>ณ Google Thailand ด้วยความมุ่งมั่นและตั้งใจ
                     </p>
-                    
                     <p class="mt-8 text-sm md:text-base text-gray-500">ให้ไว้ ณ วันที่ 16-17 ตุลาคม พ.ศ. 2568</p>
-                    
                     <div class="mt-12 w-full flex justify-center">
                         <div class="text-center">
                             <div class="w-56 h-12 mx-auto mb-2">
@@ -119,7 +119,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Google Color Bar removed as the background has its own design -->
             </div>
 
             <div id="certificate-actions" class="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
@@ -142,30 +141,26 @@
         const backButton = document.getElementById('back-button');
 
         nameForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent page reload
-            
+            event.preventDefault();
             const studentName = studentNameInput.value.trim();
             if (studentName) {
                 certificateName.textContent = studentName;
-                
-                // Fade out form, then fade in certificate
                 inputSection.classList.add('opacity-0');
                 setTimeout(() => {
                     inputSection.classList.add('hidden');
                     certificateContainer.classList.remove('hidden');
                     setTimeout(() => {
                         certificateContainer.classList.remove('opacity-0');
-                    }, 50); // a small delay to trigger transition
+                    }, 50);
                 }, 500);
             }
         });
 
         backButton.addEventListener('click', function() {
-            // Fade out certificate, then fade in form
             certificateContainer.classList.add('opacity-0');
             setTimeout(() => {
                 certificateContainer.classList.add('hidden');
-                studentNameInput.value = ''; // Clear the input field
+                studentNameInput.value = '';
                 inputSection.classList.remove('hidden');
                 setTimeout(() => {
                     inputSection.classList.remove('opacity-0');
@@ -173,7 +168,6 @@
             }, 500);
         });
 
-        // Initialize opacity for transitions
         document.addEventListener('DOMContentLoaded', () => {
             certificateContainer.classList.add('opacity-0');
         });
