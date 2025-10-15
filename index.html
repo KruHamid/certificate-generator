@@ -22,7 +22,7 @@
             background-repeat: no-repeat;
         }
 
-        /* --- STYLES FOR PRINTING (DEFINITIVE FIX FOR MOBILE) --- */
+        /* --- STYLES FOR PRINTING (CORRECTED VERSION) --- */
         @media print {
             @page {
                 size: A4 landscape;
@@ -37,18 +37,21 @@
                 -webkit-print-color-adjust: exact;
                 color-adjust: exact;
             }
-            /* Hide non-printable elements */
-            #input-section, #certificate-actions, .max-w-2xl {
+            /* CORRECTED: Only hide the specific elements we don't want to print */
+            #input-section, #certificate-actions {
                 display: none !important;
+            }
+            /* The main container should be visible but reset its styles */
+            .max-w-2xl {
+                max-width: none !important;
+                width: 100% !important;
+                height: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
             /* Force the certificate to take up the ENTIRE page */
             #certificate-container {
                 display: block !important;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
                 width: 100%;
                 height: 100%;
                 padding: 0;
