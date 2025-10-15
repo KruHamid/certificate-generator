@@ -22,58 +22,54 @@
             background-repeat: no-repeat;
         }
 
-        /* --- STYLES FOR PRINTING (DEFINITIVE FIX) --- */
+        /* --- STYLES FOR PRINTING (FINAL VERSION) --- */
         @media print {
             @page {
                 size: A4 landscape;
                 margin: 0;
             }
-            body, html {
-                margin: 0 !important;
-                padding: 0 !important;
+            /* Hide the entire body initially */
+            body {
+                visibility: hidden;
+            }
+            /* Make ONLY the certificate container and its children visible */
+            #certificate-container, #certificate-container * {
+                visibility: visible;
+            }
+            /* Position the container to fill the entire page */
+            #certificate-container {
+                position: absolute;
+                left: 0;
+                top: 0;
                 width: 100%;
                 height: 100%;
-                background: white !important;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
-            }
-            /* Hide ONLY the elements we DON'T want to print */
-            #input-section, #certificate-actions {
-                display: none !important;
-            }
-            /* Force the certificate container to be visible and fill the entire page */
-            #certificate-container {
-                display: block !important;
-                opacity: 1 !important;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                box-shadow: none;
-                border: none;
                 margin: 0;
                 padding: 0;
+                border: none;
+                box-shadow: none;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
             }
-            /* The card is the background image container */
             #certificate-card {
                  width: 100%;
                  height: 100%;
-                 border: none !important;
-                 box-shadow: none !important;
-                 border-radius: 0 !important;
-                 padding: 1.5cm; /* Safe margin for the inner content box */
+                 border-radius: 0;
+                 padding: 1.5cm; /* Safe margin */
                  box-sizing: border-box;
                  aspect-ratio: auto;
-                 display: flex !important;
-                 align-items: center !important;
-                 justify-content: center !important;
+                 align-items: center; /* Vertically center content */
+                 justify-content: center; /* Horizontally center content */
             }
-             /* The inner white box should be visible and sized correctly */
-            .inner-content-box {
-                width: 100%;
-                height: 100%;
-                background-color: rgba(255, 255, 255, 0.88) !important;
+            /* Specifically hide the action buttons inside */
+            #certificate-actions {
+                display: none !important;
+            }
+            /* Ensure background prints */
+            html, body {
+                background: white !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
             }
         }
     </style>
@@ -84,7 +80,7 @@
         <!-- Input Section -->
         <div id="input-section" class="bg-white p-8 rounded-xl shadow-lg transition-opacity duration-500">
             <div class="text-center">
-                <img src="https://img2.pic.in.th/pic/-1210515f1d6a265c77.png" alt="Event Logo" class="mx-auto mb-4 h-36 w-auto">
+                <img src="https://img2.pic.in.th/pic/-1210515f1d6a265c77.png" alt="Event Logo" class="mx-auto mb-4 h-24 w-auto">
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800">รับใบประกาศนียบัตรออนไลน์</h1>
                 <p class="text-gray-600 mt-2">สำหรับผู้เข้าร่วมกิจกรรม Google Champions Thailand Energizer 2025</p>
             </div>
@@ -102,18 +98,18 @@
         <!-- Certificate Section -->
         <div id="certificate-container" class="hidden transition-opacity duration-500">
             <div id="certificate-card" class="p-6 md:p-10 rounded-lg shadow-2xl aspect-[1.414/1] flex flex-col items-center justify-center text-center relative overflow-hidden border border-gray-200">
-                <!-- Inner div for content to ensure the white box is reliable -->
-                <div class="inner-content-box w-full h-full bg-white bg-opacity-88 backdrop-blur-sm p-8 rounded-lg flex flex-col items-center justify-center">
-                    <img src="https://img2.pic.in.th/pic/-1210515f1d6a265c77.png" alt="GEG Thailand Logo" class="h-32 mx-auto mb-4 w-auto">
+                <!-- Content is pushed up slightly by reducing bottom margin/padding -->
+                <div class="w-full bg-white bg-opacity-80 backdrop-blur-sm p-8 rounded-lg" style="margin-bottom: 2rem;">
+                    <img src="https://img2.pic.in.th/pic/-1210515f1d6a265c77.png" alt="GEG Thailand Logo" class="h-20 mx-auto mb-4 w-auto">
                     <h2 class="text-xl md:text-2xl text-blue-600 tracking-wider font-bold">CERTIFICATE OF PARTICIPATION</h2>
-                    <p class="mt-8 text-base md:text-lg text-gray-700">มอบให้ไว้เพื่อแสดงว่า</p>
-                    <p id="certificate-name" class="my-4 text-3xl md:text-5xl font-bold text-gray-800 border-b-2 border-dotted border-gray-300 pb-4"></p>
-                    <p class="mt-6 text-base md:text-lg text-gray-700 max-w-lg mx-auto">
+                    <p class="mt-6 text-base md:text-lg text-gray-700">มอบให้ไว้เพื่อแสดงว่า</p>
+                    <p id="certificate-name" class="my-3 text-3xl md:text-5xl font-bold text-gray-800 border-b-2 border-dotted border-gray-300 pb-3"></p>
+                    <p class="mt-5 text-base md:text-lg text-gray-700 max-w-lg mx-auto">
                         ได้เข้าร่วมกิจกรรม <span class="font-bold">Google Champions Thailand Energizer 2025</span>
                         <br>ณ Google Thailand ด้วยความมุ่งมั่นและตั้งใจ
                     </p>
-                    <p class="mt-8 text-sm md:text-base text-gray-500">ให้ไว้ ณ วันที่ 16-17 ตุลาคม พ.ศ. 2568</p>
-                    <div class="mt-12 w-full flex justify-center">
+                    <p class="mt-6 text-sm md:text-base text-gray-500">ให้ไว้ ณ วันที่ 16-17 ตุลาคม พ.ศ. 2568</p>
+                    <div class="mt-8 w-full flex justify-center">
                         <div class="text-center">
                             <div class="w-56 h-12 mx-auto mb-2">
                                 <img src="https://img2.pic.in.th/pic/-115cd3bc957a74d2ca.png" alt="Signature" class="h-full mx-auto object-contain">
