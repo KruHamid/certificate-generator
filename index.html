@@ -42,17 +42,19 @@
             }
             #certificate-container {
                 display: block !important;
-                width: 100%;
-                height: 100%;
+                width: 297mm; /* A4 landscape width */
+                height: 210mm; /* A4 landscape height */
                 box-shadow: none;
                 border: none;
-                padding: 2rem;
+                padding: 1.5cm; /* Add safe margin to prevent clipping */
                 margin: 0;
-                box-sizing: border-box;
+                box-sizing: border-box; /* Crucial for padding calculation */
             }
             #certificate-card {
+                 width: 100%;
                  height: 100%;
                  border: 1px solid #e0e0e0;
+                 box-shadow: none;
             }
         }
     </style>
