@@ -27,7 +27,7 @@
             background-repeat: no-repeat;
         }
 
-        /* Custom styles for printing */
+        /* --- STYLES FOR PRINTING (REVISED FOR RELIABILITY) --- */
         @media print {
             body, html {
                 margin: 0;
@@ -35,35 +35,32 @@
                 width: 100%;
                 height: 100%;
                 background-color: white;
-                -webkit-print-color-adjust: exact; /* Force printing background colors in Chrome/Safari */
-                color-adjust: exact; /* Standard property for printing background colors */
+                -webkit-print-color-adjust: exact; /* Force printing background colors */
+                color-adjust: exact;
             }
-            body {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+            /* Hide unnecessary elements */
             #input-section, #certificate-actions {
                 display: none !important;
             }
-            .max-w-2xl {
-                max-width: 100% !important;
-            }
+            /* Ensure container fills the entire print page */
             #certificate-container {
                 display: block !important;
-                width: 297mm; /* A4 landscape width */
-                height: 210mm; /* A4 landscape height */
+                width: 100%;
+                height: 100%;
+                padding: 0; /* No padding on the main container */
+                margin: 0;
                 box-shadow: none;
                 border: none;
-                padding: 1.5cm; /* Add safe margin to prevent clipping */
-                margin: 0;
-                box-sizing: border-box; /* Crucial for padding calculation */
             }
+            /* The card itself will fill the container and handle its own padding */
             #certificate-card {
                  width: 100%;
                  height: 100%;
-                 border: 1px solid #e0e0e0;
+                 border: none;
                  box-shadow: none;
+                 border-radius: 0;
+                 padding: 2cm; /* Create a safe print margin inside the card */
+                 box-sizing: border-box; /* Ensure padding is included in the size */
             }
         }
     </style>
